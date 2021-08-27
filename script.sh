@@ -9,3 +9,5 @@
 #							 https://github.com/nextgenusfs/funannotate/issues/242 
 
 # This script assumes that FUNGAP.sh and its dependencies have been installed
+
+### <Updated script> 
