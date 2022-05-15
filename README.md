@@ -14,30 +14,25 @@ An end-to-end script utilizing the [Funannotate](https://github.com/nextgenusfs/
 #https://github.com/nextgenusfs/funannotate/issues/242 
 
 ###### This script assumes that FUNGAP.sh and its dependencies have been installed
-
-######################################################################################
-#Setting up FunGAP (dependencies for Funannotate included)
-######################################################################################
-################################################################################################
-# We first need to create private python environment & install miniconda installer (Just Once if Miniconda not installed)
-# HPC info: https://hpc.nih.gov/apps/python.html#envs 
+### Setting up FunGAP (dependencies for Funannotate included)
+We first need to create private python environment & install miniconda installer (Just Once if Miniconda not installed)
+#HPC info: https://hpc.nih.gov/apps/python.html#envs 
 `cd /data/$USER
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 mkdir -p /scratch/$USER/temp
 TMPDIR=/scratch/$USER/temp bash Miniconda3-latest-Linux-x86_64.sh -p /data/$USER/conda -b
 rm Miniconda3-latest-Linux-x86_64.sh`
-##################################################################################################
-
+`
 #get readyy to intall with conda
 source /data/$USER/conda/etc/profile.d/conda.sh
 conda activate base
 conda update conda
 which conda  # It should be $HOME/anaconda3/condabin/conda
-                # it's: /data/proctordm/conda/bin/conda
+                # it's: /data/$USER/conda/bin/conda`
 
 
 #### define home and make a fungap directory -- probably should make this direrctory somewhere in $PATH like bin 
-HOME=/home/proctordm
+HOME=/home/$USER
 mkdir $HOME/FunGAP
 cd $HOME/FunGAP
 
@@ -65,7 +60,7 @@ export AUGUSTUS_CONFIG_PATH=~/annotation
 
         #Due to license and distribution restrictions, GeneMark, GenomeThreader and ProtHint should be additionally installed for BRAKER2 to fully work.
         #These packages can be either installed as part of the BRAKER2 environment, or the PATH variable should be configured to point to them.
-        #The GeneMark key should be located in /home/proctordm/.gm_key and GENEMARK_PATH should include the path to the GeneMark executables.
+        #The GeneMark key should be located in /home/$USER/.gm_key and GENEMARK_PATH should include the path to the GeneMark executables.
  
 # Install Python and Perl modules (within fungap environment)
 pip install biopython bcbio-gff markdown2 matplotlib
