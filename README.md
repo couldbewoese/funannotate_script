@@ -3,8 +3,7 @@ An end-to-end script utilizing the [Funannotate](https://github.com/nextgenusfs/
 
 
 
-#### 
-(1/2): install funannotate 
+#### Purpose (1/2): install funannotate 
 ###### Creation date: May 28, 2021
 ###### Revision date: June 28, 2021
 ###### Tutorial: https://github.com/nextgenusfs/funannotate
@@ -223,9 +222,9 @@ funannotate test -t all --cpus 8 #took me ~3 hrs
 
 
 #### Purpose (2/2): go through Funannotate pipeline w/ RNA-seq data Caur007, Caur008, Caur009
-##### Creation date: July 21, 2021
-##### Update date: August 2, 2021
-##### Tutorial: https://funannotate.readthedocs.io/en/latest/prepare.html
+###### Creation date: July 21, 2021
+###### Update date: August 2, 2021
+###### Tutorial: https://funannotate.readthedocs.io/en/latest/prepare.html
 
 ```
 #!/usr/bin/bash
