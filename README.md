@@ -77,7 +77,7 @@ mamba install maker=3.01.03 -c bioconda -c conda-forge
 
 ## Download and install FunGAP
 ### Download FunGAP
-Download FunGAP using GitHub clone. Suppose we are installing FunGAP in your $HOME directory, but you are free to change the location. _$FUNGAP_DIR_ is going to be your FunGAP installation directory.
+Download FunGAP using GitHub clone. Suppose we are installing FunGAP in your `$HOME` directory, but you are free to change the location. `$FUNGAP_DIR` is going to be your FunGAP installation directory.
 ```
 cd $HOME  # or wherever you want
 git clone https://github.com/CompSynBioLab-KoreaUniv/FunGAP.git
