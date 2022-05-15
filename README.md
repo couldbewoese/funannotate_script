@@ -13,7 +13,7 @@ An end-to-end script utilizing the [Funannotate](https://github.com/nextgenusfs/
 ###### https://github.com/nextgenusfs/funannotate/issues/242 
 
 
-###### This script assumes that FUNGAP.sh and its dependencies have been installed
+###### This script assumes that FUNGAP.sh and its dependencies have been installed (No longer-3/27/22)
 ### Setting up FunGAP (dependencies for Funannotate included)
 We first need to create private python environment & install miniconda installer (Just Once if Miniconda not installed)  
 #HPC info: https://hpc.nih.gov/apps/python.html#envs 
@@ -62,31 +62,33 @@ Due to license and distribution restrictions, GeneMark, GenomeThreader and ProtH
 These packages can be either installed as part of the BRAKER2 environment, or the PATH variable should be configured to point to them.  
 The GeneMark key should be located in /home/$USER/.gm_key and GENEMARK_PATH should include the path to the GeneMark executables.
  
-# Install Python and Perl modules (within fungap environment)
+### Install Python and Perl modules (within fungap environment)
+```
 pip install biopython bcbio-gff markdown2 matplotlib
 cpanm YAML Hash::Merge Logger::Simple Parallel::ForkManager MCE::Mutex Thread::Queue threads
-
-# Install Maker using Mamba (Maker installation is conflict with Busco)
+```
+### Install Maker using Mamba (Maker installation is conflict with Busco)
+```
 conda deactivate
 conda create -y -n maker
 conda activate maker
 mamba install maker=3.01.03 -c bioconda -c conda-forge
+```
 
-
-#2. Download and install FunGAP
-#2.1. Download FunGAP
-
-#Download FunGAP using GitHub clone. Suppose we are installing FunGAP in your $HOME directory, but you are free to change the location. $FUNGAP_DIR is going to be your FunGAP installation directory.
-
+## Download and install FunGAP
+### Download FunGAP
+Download FunGAP using GitHub clone. Suppose we are installing FunGAP in your $HOME directory, but you are free to change the location. $FUNGAP_DIR is going to be your FunGAP installation directory.
+```
 cd $HOME  # or wherever you want
 git clone https://github.com/CompSynBioLab-KoreaUniv/FunGAP.git
 export FUNGAP_DIR=$(realpath FunGAP/)
 # You can put this export command in the your .bashrc file
 # so that you don't need to type every time you run the FunGAP ***************TO DO 
+```
 
 
-#3. Download Pfam
-
+### Download Pfam
+```
 mkdir -p $FUNGAP_DIR/db/pfam
 cd $FUNGAP_DIR/db/pfam
 wget ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz
@@ -94,12 +96,12 @@ wget ftp://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.dat.gz
 gunzip Pfam-A.hmm.gz Pfam-A.hmm.dat.gz
 conda activate fungap
 hmmpress Pfam-A.hmm  # HMMER package (would be automatically installed in the above Anaconda step)
-
-#4. install gene-mark 
-#go here and download it: http://exon.gatech.edu/GeneMark/license_download.cgi
-  # Pick: GeneMark-ES/ET/EP ver 4.65_lic LINUX 64 
-#transfer the software AND BE SURE TO GET THE KEY!!! to biowulf: $FUNGAP_DIR/external/
-
+```
+### Install gene-mark 
+Download: http://exon.gatech.edu/GeneMark/license_download.cgi
+Pick: GeneMark-ES/ET/EP ver 4.65_lic LINUX 64 
+_Transfer the software AND BE SURE TO GET THE KEY!!! to biowulf: $FUNGAP_DIR/external/_
+```
 mkdir $FUNGAP_DIR/external/
 mv gmes_linux_64.tar.gz gm_key_64.gz $FUNGAP_DIR/external/  # Move your downloaded files to this directory
 cd $FUNGAP_DIR/external/
@@ -107,35 +109,39 @@ tar -zxvf gmes_linux_64.tar.gz
 #gunzip gm_key_64.gz #not sure why this was commented out, but I needed to run gunzip to use the next cp
 cp gm_key_64 ~/.gm_key
 #perl gmes_petap.pl to check proper installation (should show help menu)
- 
+ ```
 
-#4.2. Change the perl path
-
-#GeneMark forces to use /usr/bin/perl instead of conda-installed perl. You can change this by running change_path_in_perl_scripts.pl script.
-
+### Change the perl path
+GeneMark forces to use /usr/bin/perl instead of conda-installed perl. You can change this by running change_path_in_perl_scripts.pl script.
+```
 cd $FUNGAP_DIR/external/gmes_linux_64/
 perl change_path_in_perl_scripts.pl "/usr/bin/env perl"
-#test path change by assessing shebang (#!) line 
-  ## less $FUNGAP_DIR/external/gmes_linux_64/gmes_petap.pl
+```
+test path change by assessing shebang (#!) line 
+```
+less $FUNGAP_DIR/external/gmes_linux_64/gmes_petap.pl
+```
 
-#4.3 Check GeneMark and its dependencies are correctly installed.
-
+### Check GeneMark and its dependencies are correctly installed.
+```
 cd $FUNGAP_DIR/external/gmes_linux_64/
 perl ./gmes_petap.pl #note you have to include perrl before the script name
+```
 
-
-#5. Download RepeatMasker databases
+### Download RepeatMasker databases
+```
 conda activate fungap
 cd $(dirname $(which RepeatMasker))/../share/RepeatMasker
 # ./configure command will download required databases
 echo -e "\n2\n$(dirname $(which rmblastn))\n\n5\n" > tmp && ./configure < tmp
-
-# It should look like this
+```
+It should look like this
+```
 ls $(dirname $(which RepeatMasker))/../share/RepeatMasker/Libraries
 # Artefacts.embl  Dfam.hmm       RepeatAnnotationData.pm  RepeatMasker.lib.nin  RepeatPeps.lib      RepeatPeps.lib.psq
 # CONS-Dfam_3.0   README.meta    RepeatMasker.lib         RepeatMasker.lib.nsq  RepeatPeps.lib.phr  RepeatPeps.readme
 # Dfam.embl       RMRBMeta.embl  RepeatMasker.lib.nhr     RepeatMaskerLib.embl  RepeatPeps.lib.pin  taxonomy.dat
-
+```
 
 #6. Configure FunGAP
 
