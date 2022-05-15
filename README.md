@@ -2,23 +2,24 @@
 An end-to-end script utilizing the [Funannotate](https://github.com/nextgenusfs/funannotate) fungal annotation pipeline to functionally annotate a fungal genome
 
 
-```
-#!/usr/bin/bash
-#Purpose (1/2): install funannotate 
-#Creation date: May 28, 2021
-#Revision date: June 28, 2021
-#Tutorial: https://github.com/nextgenusfs/funannotate
-#Read the docs: https://funannotate.readthedocs.io/en/latest/install.html
-#manuscript: https://academic.oup.com/bioinformatics/article/33/18/2936/3861332
-#troubleshooting reference: https://github.com/nextgenusfs/funannotate/issues/423
-#https://github.com/nextgenusfs/funannotate/issues/242 
-```
+
+##### Purpose (1/2): install funannotate 
+###### Creation date: May 28, 2021
+###### Revision date: June 28, 2021
+###### Tutorial: https://github.com/nextgenusfs/funannotate
+###### Read the docs: https://funannotate.readthedocs.io/en/latest/install.html
+###### manuscript: https://academic.oup.com/bioinformatics/article/33/18/2936/3861332
+###### troubleshooting reference: https://github.com/nextgenusfs/funannotate/issues/423
+###### https://github.com/nextgenusfs/funannotate/issues/242 
+
 
 ###### This script assumes that FUNGAP.sh and its dependencies have been installed
 ### Setting up FunGAP (dependencies for Funannotate included)
 We first need to create private python environment & install miniconda installer (Just Once if Miniconda not installed)
 #HPC info: https://hpc.nih.gov/apps/python.html#envs 
-```cd /data/$USER
+```
+#!/usr/bin/bash
+cd /data/$USER
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 mkdir -p /scratch/$USER/temp
 TMPDIR=/scratch/$USER/temp bash Miniconda3-latest-Linux-x86_64.sh -p /data/$USER/conda -b
