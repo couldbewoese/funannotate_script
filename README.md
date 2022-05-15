@@ -238,7 +238,7 @@ mkdir /data/$USER/Files4RF
 # directory I stored assembly data is in /data/$USER/Files4RF
 ```
 
-# Get DNA seq
+### Get DNA seq
 Retrieved from shared lab storage
 ```
 cp -r /data/$USER/data/caur_genomes/Caur_3166.Tw_acuzr.Nano.fasta /data/$USER/Files4RF
@@ -256,21 +256,29 @@ funannotate setup -d $HOME/funannotate_db -f -w -l
 export FUNANNOTATE_DB=/home/$USER/funannotate_db
 ```
 
-### Preparing Assembly ###
+### Preparing Assembly
+```
 cd /data/$USER/Files4RF 
-# Clean (clean repetitive contigs, though this step may not be necessary for this .fa)
+```
+#### Clean
+Clean repetitive contigs. This step may not be necessary for all .fa files
+```
 funannotate clean -i Caur_3166.Tw_acuzr.Nano.fasta -o Caur_3166.Tw_acuzr.Nano_clean.fasta
-
-#sorting/rename FASTA headers
+```
+#### Sorting/rename FASTA headers
+```
 funannotate sort -i Caur_3166.Tw_acuzr.Nano_clean.fasta -o Caur_3166.Tw_acuzr.Nano_clean_sort.fasta
-
-#RepeatMasking Assmebly  
+```
+#### RepeatMasking Assmebly 
+```
 funannotate mask -i Caur_3166.Tw_acuzr.Nano_clean_sort.fasta -o Caur_3166.Tw_acuzr.Nano_clean_sort_mask.fasta
+```
 
-
-### RNA Alignment (funannotate train) ### (using in-house data)
-echo "step 2: retrive & train RNA Seq data"
-#! If Novaseq files are stored in shared storage, pull & unzip files (example files pulled used below)
+### RNA Alignment (funannotate train) 
+Using in-house data
+```
+echo "Retrive & train RNA Seq data"
+# If Novaseq files are stored in shared storage, pull & unzip files (example files pulled used below)
 
 module load signalp
 module load eggNOG-mapper
@@ -281,47 +289,59 @@ funannotate train -i Caur_3166.Tw_acuzr.Nano_clean_sort_mask.fasta -o fun \
     --jaccard_clip --species "Candida auris" --stranded RF\  #check strandedness info if using RNASeq libraries
     --strain 3166_m3 --cpus 36 
 module unload funannotate signalp eggNOG-mapper python/3.7
-#keeping these modules loaded somehow conflcits with 'funannotate predict'
+```
+Keeping these modules loaded somehow conflcits with 'funannotate predict'
 
-### Gene Prediction ### 
+
+### Gene Prediction
+```
 echo "step 3: Predict"
 funannotate predict -i Caur_3166.Tw_acuzr.Nano_clean_sort_mask.fasta -o fun \
         --species "Candida auris" --strain 3166_m3 --cpus 36 --genemark_mode ES
 #training parameters: fun/predict_results/candida_auris_3166_m3.parameters.json
 #add species parameters to database
 funannotate species -s candida_auris_3166_m3 -a fun/predict_results/candida_auris_3166_m3.parameters.json
+````
 
 
-### Add UTRs & Update Annotation w/ PASA (funannotate update) ###
+### Add UTRs & Update Annotation w/ PASA (funannotate update) 
+```
 echo "step 4: Update"
 funannotate update -i fun --cpus 36
+```
 
-
-### Functional Annotation ###
+### Functional Annotation
+```
 echo "step 5: Protein Programs"
 #Interproscanc
 module load interproscan
 cp -r /usr/local/apps/interproscan /data/$USER/Files4RF
 cd /data/$USER/Files4RF
 funannotate iprscan -i fun --cpus 36 -m local --iprscan_path /data/$USER/Files4RF/interproscan/5.42-78.0/interproscan_app
-# results are here fun/annotate_misc/iprscan.xml
-# this will hang a long time at 0%, but should finish running after a few hours
+```
+Results are here `fun/annotate_misc/iprscan.xml`
+This will hang a long time at 0%, but should finish running after a few hours
 
-#Eggnog
+#### Eggnog
+```
 module load eggNOG-mapper
 cp -r /usr/local/apps/eggNOG-mapper /data/$USER/Files4RF
 #Signalp
 module load signalp
-#antiSMASH
+```
+#### antiSMASH
+```
 funannotate remote -i fun -m antismash -e $USER@nih.gov 
-#Phobius
-funannotate remote -i fun -m phobius -e $USER@nih.gov #usually doesn't run for some reason
-
-#Annotation
+```
+#### Phobius
+````
+funannotate remote -i fun -m phobius -e $USER@nih.gov 
+#usually doesn't run for some reason - needs to be resolved
+````
+#### Annotation
+```
 echo "step 6: Annotate"
 funannotate annotate -i fun --cpus 36
-#GFF3 data to be visualized in R
+```
+_GFF3 data to be visualized in R. _
 
-
-rm -rf Caur007* Caur008* Caur009* Caur_3166.Tw_acuzr.Nano.fasta
-rm -rf interproscan eggNOG-mapper
