@@ -32,7 +32,7 @@ conda update conda
 which conda  # It should be $HOME/anaconda3/condabin/conda
                 # it's: /data/$USER/conda/bin/conda
          
-#### define home and make a fungap directory -- probably should make this direrctory somewhere in $PATH like bin 
+#### define home and make a fungap directory -- probably should make this direrctory somewhere in _$PATH_ like bin 
 HOME=/home/$USER
 mkdir $HOME/FunGAP
 cd $HOME/FunGAP
@@ -100,7 +100,7 @@ hmmpress Pfam-A.hmm  # HMMER package (would be automatically installed in the ab
 ### Install gene-mark 
 Download: http://exon.gatech.edu/GeneMark/license_download.cgi
 Pick: GeneMark-ES/ET/EP ver 4.65_lic LINUX 64 
-_Transfer the software AND BE SURE TO GET THE KEY!!! to biowulf: $FUNGAP_DIR/external/_
+_Transfer the software AND BE SURE TO GET THE KEY!!! to biowulf: `$FUNGAP_DIR/external`/_
 ```
 mkdir $FUNGAP_DIR/external/
 mv gmes_linux_64.tar.gz gm_key_64.gz $FUNGAP_DIR/external/  # Move your downloaded files to this directory
