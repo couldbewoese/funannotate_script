@@ -2,7 +2,7 @@
 An end-to-end script utilizing the [Funannotate](https://github.com/nextgenusfs/funannotate) fungal annotation pipeline to functionally annotate a fungal genome
 
 
-
+```
 #!/usr/bin/bash
 #Purpose (1/2): install funannotate 
 #Creation date: May 28, 2021
@@ -12,6 +12,7 @@ An end-to-end script utilizing the [Funannotate](https://github.com/nextgenusfs/
 #manuscript: https://academic.oup.com/bioinformatics/article/33/18/2936/3861332
 #troubleshooting reference: https://github.com/nextgenusfs/funannotate/issues/423
 #https://github.com/nextgenusfs/funannotate/issues/242 
+```
 
 ###### This script assumes that FUNGAP.sh and its dependencies have been installed
 ### Setting up FunGAP (dependencies for Funannotate included)
