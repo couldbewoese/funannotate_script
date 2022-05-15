@@ -1,5 +1,5 @@
 # funannotate_script
-An end-to-end script utilizing the [Funannotate](https://github.com/nextgenusfs/funannotate) fungal annotation pipeline to functionally annotate a fungal genome
+An end-to-end script utilizing the [Funannotate](https://github.com/nextgenusfs/funannotate) fungal annotation pipeline to functionally annotate a fungal genome. Code was optimized to run on the NIH Biowulf cluster to annotate a fungal pathogen's genome as part of my summer work in an NHGRI lab.
 
 
 
