@@ -3,7 +3,8 @@ An end-to-end script utilizing the [Funannotate](https://github.com/nextgenusfs/
 
 
 
-##### Purpose (1/2): install funannotate 
+#### 
+(1/2): install funannotate 
 ###### Creation date: May 28, 2021
 ###### Revision date: June 28, 2021
 ###### Tutorial: https://github.com/nextgenusfs/funannotate
@@ -52,7 +53,7 @@ mamba install \
   -c bioconda -c conda-forge
 ```  
 
-The config/ directory from AUGUSTUS can be accessed with the variable AUGUSTUS_CONFIG_PATH.
+The config/ directory from AUGUSTUS can be accessed with the variable _AUGUSTUS_CONFIG_PATH_.
 BRAKER2 requires this directory to be in a writable location, so if that is not the case, copy this directory to a writable location, e.g.:
 ```
 cp -r ~/annotation
@@ -60,7 +61,7 @@ export AUGUSTUS_CONFIG_PATH=~/annotation
 ```
 Due to license and distribution restrictions, GeneMark, GenomeThreader and ProtHint should be additionally installed for BRAKER2 to fully work.  
 These packages can be either installed as part of the BRAKER2 environment, or the PATH variable should be configured to point to them.  
-The GeneMark key should be located in /home/$USER/.gm_key and GENEMARK_PATH should include the path to the GeneMark executables.
+The GeneMark key should be located in /_home/$USER/.gm_key and GENEMARK_PATH_ should include the path to the GeneMark executables.
  
 ### Install Python and Perl modules (within fungap environment)
 ```
@@ -221,7 +222,7 @@ funannotate test -t all --cpus 8 #took me ~3 hrs
 ## Running funannotate
 
 
-##### Purpose (2/2): go through Funannotate pipeline w/ RNA-seq data Caur007, Caur008, Caur009
+#### Purpose (2/2): go through Funannotate pipeline w/ RNA-seq data Caur007, Caur008, Caur009
 ##### Creation date: July 21, 2021
 ##### Update date: August 2, 2021
 ##### Tutorial: https://funannotate.readthedocs.io/en/latest/prepare.html
