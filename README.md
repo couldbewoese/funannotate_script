@@ -16,7 +16,7 @@ An end-to-end script utilizing the [Funannotate](https://github.com/nextgenusfs/
 ###### This script assumes that FUNGAP.sh and its dependencies have been installed
 ### Setting up FunGAP (dependencies for Funannotate included)
 We first need to create private python environment & install miniconda installer (Just Once if Miniconda not installed)
-#HPC info: https://hpc.nih.gov/apps/python.html#envs 
+  #HPC info: https://hpc.nih.gov/apps/python.html#envs 
 ```
 #!/usr/bin/bash
 cd /data/$USER
