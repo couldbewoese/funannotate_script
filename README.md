@@ -198,9 +198,9 @@ export GENEMARK_PATH=/home/$USER/bin/gmes_linux_64 #'funannotate check' runs whe
 ```
 #### Aside: Troubleshooting GeneMark. 
 Issues with GeneMark in the pipeline were the msot prevelant. Common things to check include.
-1) all dependencies are downloaded: see /your/path/gmes_linux_64/README.GeneMark-ES-suite  
-2) perl path is set: perl change_path_in_perl_scripts.pl "/usr/bin/env perl"  
-3) run 'check_install.bash' and/or perl gmes_petap.pl to see if GM is operating  
+1) all dependencies are downloaded: see`/your/path/gmes_linux_64/README.GeneMark-ES-suite`  
+2) perl path is set: `perl change_path_in_perl_scripts.pl "/usr/bin/env perl"`
+3) run `check_install.bash` and/or `perl gmes_petap.pl` to see if GM is operating  
 
 
 #### Check that all modules are installed
@@ -343,5 +343,5 @@ funannotate remote -i fun -m phobius -e $USER@nih.gov
 echo "step 6: Annotate"
 funannotate annotate -i fun --cpus 36
 ```
-_GFF3 data to be visualized in R. _
+_GFF3 data to be visualized in R._
 
