@@ -143,10 +143,9 @@ ls $(dirname $(which RepeatMasker))/../share/RepeatMasker/Libraries
 # Dfam.embl       RMRBMeta.embl  RepeatMasker.lib.nhr     RepeatMaskerLib.embl  RepeatPeps.lib.pin  taxonomy.dat
 ```
 
-#6. Configure FunGAP
-
-#This script allows users to set and test (by --help command) all the dependencies. If this script runs without any issue, you are ready to run FunGAP!
-
+### Configure FunGAP
+This script allows users to set and test (by --help command) all the dependencies. If this script runs without any issue, you are ready to run FunGAP!
+```
 cd $FUNGAP_DIR
 conda activate maker
 export MAKER_DIR=$(dirname $(which maker))
@@ -156,64 +155,79 @@ python ./set_dependencies.py \
   --pfam_db_path db/pfam/ \
   --genemark_path external/gmes_linux_64/ \
   --maker_path ${MAKER_DIR}
+```
 
+## Setting up funannotate
 
-
-######################################################################################
-#Setting up funannotate
-######################################################################################
+If running on biowulf, recommended settings.
+```
 screen
 sinteractive --mem=96g --cpus-per-task 8 --time 36:00:00
+```
 
-#install mamba into base environment
+### Install mamba into base environment
+```
 conda activate base
 conda install -n base mamba
-
-#then use mamba as drop in replacmeent & install funannotate
+```
+Then use mamba as drop in replacment & install funannotate
+```
 mamba create -n funannotate funannotate
 #start up conda ENV
 conda activate funannotate
 mamba install \
   funannotate \
   -c bioconda -c conda-forge
+```
 
-#set ENV variable for $FUNANNOTATE_DB
+### Set ENV variable for $FUNANNOTATE_DB
+```
 echo "export FUNANNOTATE_DB=/your/path" > ~/funannotate.sh
-echo "unset FUNANNOTATE_DB" > ~/funannotate.sh
+echo "unset FUNANNOTATE_DB" > ~/funannotate.sh 
+```
 
-# find which directories are in path
+### Find which directories are in path
+```
 echo $PATH 
-#make a copy of the gemes_linux executable in a directory in your path: note may want to change funGap to access this new target_dierctory
+```
+Make a copy of the gemes_linux executable in a directory in your path: note may want to change funGap to access this new target_dierctory
+```
 cp -r ~FunGAP/external/gmes_linux_64 /home/$USER/bin
 export PATH=/home/$USER/bin/gmes_linux_64:$PATH 
 export GENEMARK_PATH=/home/$USER/bin/gmes_linux_64 #'funannotate check' runs when both of these paths are set
-#Troubleshooting GeneMark
-# 1) all dependencies are downloaded: see /your/path/gmes_linux_64/README.GeneMark-ES-suite
-# 2) perl path is set: perl change_path_in_perl_scripts.pl "/usr/bin/env perl"
-# 3) run 'check_install.bash' and/or perl gmes_petap.pl to see if GM is operating
+```
+#### Aside: Troubleshooting GeneMark. 
+Issues with GeneMark in the pipeline were the msot prevelant. Common things to check include.
+1) all dependencies are downloaded: see /your/path/gmes_linux_64/README.GeneMark-ES-suite  
+2) perl path is set: perl change_path_in_perl_scripts.pl "/usr/bin/env perl"  
+3) run 'check_install.bash' and/or perl gmes_petap.pl to see if GM is operating  
 
 
-#check that all modules are installed
+#### Check that all modules are installed
+```
 funannotate check --show-versions #signalp & eggmapper can be loaded from biowulf
+```
 
-#download/setup databases to a writable/readable location
+### Download/setup databases to a writable/readable location
+```
 funannotate setup -d $HOME/funannotate_db -f -w -l 
 export FUNANNOTATE_DB=/home/$USER/funannotate_db #location of databse: /home/$USER/funannotate_db
-
-#run a test annotation 
+```
+Run a test annotation 
+```
 funannotate test -t all --cpus 8 #took me ~3 hrs
+```
+
+## Running funannotate
 
 
+##### Purpose (2/2): go through Funannotate pipeline w/ RNA-seq data Caur007, Caur008, Caur009
+##### Creation date: July 21, 2021
+##### Update date: August 2, 2021
+##### Tutorial: https://funannotate.readthedocs.io/en/latest/prepare.html
 
-#####################################################################################
-#Running funannotate
-#####################################################################################
+```
 #!/usr/bin/bash
-#Purpose (2/2): go through Funannotate pipeline w/ RNA-seq data Caur007, Caur008, Caur009
-#Creation date: July 21, 2021
-#Update date: August 2, 2021
-#Tutorial: https://funannotate.readthedocs.io/en/latest/prepare.html
-
 set -e 
 sinteractive --mem=96g --cpus-per-task 8 --time 36:00:00
 
@@ -222,12 +236,17 @@ conda activate base
 conda activate funannotate
 mkdir /data/$USER/Files4RF
 # directory I stored assembly data is in /data/$USER/Files4RF
+```
 
-#get DNA seq
+# Get DNA seq
+Retrieved from shared lab storage
+```
 cp -r /data/$USER/data/caur_genomes/Caur_3166.Tw_acuzr.Nano.fasta /data/$USER/Files4RF
-cd /data/$USER/Files4RF 
+cd /data/$USER/Files4RF
+```
 
-#for some reason, must reset paths each time (error in: funannotate check --show-versions)
+#### For some reason, path myst be reset each time (error in: funannotate check --show-versions)
+```
 export PATH=/home/$USER/bin/gmes_linux_64:$PATH
 export GENEMARK_PATH=/home/$USER/bin/gmes_linux_64 
 export TRINITYHOME=/data/$USER/conda/envs/funannotate/opt/trinity-2.8.5 
@@ -235,9 +254,8 @@ export TRINITYHOME=/data/$USER/conda/envs/funannotate/opt/trinity-2.8.5
 #re-run to get funannotate species 
 funannotate setup -d $HOME/funannotate_db -f -w -l 
 export FUNANNOTATE_DB=/home/$USER/funannotate_db
+```
 
-
-echo "step 1: prepare assembly"
 ### Preparing Assembly ###
 cd /data/$USER/Files4RF 
 # Clean (clean repetitive contigs, though this step may not be necessary for this .fa)
