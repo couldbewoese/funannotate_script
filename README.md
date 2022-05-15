@@ -23,25 +23,25 @@ cd /data/$USER
 wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
 mkdir -p /scratch/$USER/temp
 TMPDIR=/scratch/$USER/temp bash Miniconda3-latest-Linux-x86_64.sh -p /data/$USER/conda -b
-rm Miniconda3-latest-Linux-x86_64.sh```
-```
+rm Miniconda3-latest-Linux-x86_64.sh
+
 #get readyy to intall with conda
 source /data/$USER/conda/etc/profile.d/conda.sh
 conda activate base
 conda update conda
 which conda  # It should be $HOME/anaconda3/condabin/conda
-                # it's: /data/$USER/conda/bin/conda```
-
-
+                # it's: /data/$USER/conda/bin/conda
+         
 #### define home and make a fungap directory -- probably should make this direrctory somewhere in $PATH like bin 
 HOME=/home/$USER
 mkdir $HOME/FunGAP
 cd $HOME/FunGAP
+```
 
-
-############Use mamba to install dependencies 
-
-# Install Mamba package manager (faster!)
+### Use mamba to install dependencies 
+ 
+ ```
+#Install Mamba package manager (faster!)
 conda install mamba -n base -c conda-forge
 
 # Create FunGAP environment and install dependencies using Mamba
@@ -50,15 +50,14 @@ conda activate fungap
 mamba install \
   braker2=2.1.5 trinity=2.12.0 repeatmodeler=2.0.1 hisat2=2.2.1 pfam_scan=1.6 busco=5.1.2 \
   -c bioconda -c conda-forge
+```  
 
-#(editSkyler) I had a bash error w/ mamba command, but it was resolved by running this entire
-  #chunk at once (C&P all three comands simultaneously)
-
-
-#The config/ directory from AUGUSTUS can be accessed with the variable AUGUSTUS_CONFIG_PATH.
-#BRAKER2 requires this directory to be in a writable location, so if that is not the case, copy this directory to a writable location, e.g.:
+The config/ directory from AUGUSTUS can be accessed with the variable AUGUSTUS_CONFIG_PATH.
+BRAKER2 requires this directory to be in a writable location, so if that is not the case, copy this directory to a writable location, e.g.:
+```
 cp -r ~/annotation
 export AUGUSTUS_CONFIG_PATH=~/annotation
+```
 
         #Due to license and distribution restrictions, GeneMark, GenomeThreader and ProtHint should be additionally installed for BRAKER2 to fully work.
         #These packages can be either installed as part of the BRAKER2 environment, or the PATH variable should be configured to point to them.
