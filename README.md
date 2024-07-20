@@ -1,16 +1,16 @@
 # funannotate_script
-An end-to-end script utilizing the [Funannotate](https://github.com/nextgenusfs/funannotate) fungal annotation pipeline to functionally annotate a fungal genome. Code was optimized to run on the NIH Biowulf cluster to annotate a fungal pathogen's genome as part of my summer work in a NHGRI lab. 
+An end-to-end script utilizing the [Funannotate](https://github.com/nextgenusfs/funannotate) fungal annotation pipeline to functionally annotate fungal genomes. Code was optimized to run on the NIH Biowulf cluster to annotate a Candida auris isolate's genome as part of my summer work in an NHGRI lab. 
 
 
 
 #### Purpose (1/2): install funannotate 
 ###### Creation date: May 28, 2021
 ###### Revision date: June 28, 2021
-###### Tutorial: https://github.com/nextgenusfs/funannotate
-###### Read the docs: https://funannotate.readthedocs.io/en/latest/install.html
+###### See funannotate documentation: https://github.com/nextgenusfs/funannotate
+###### If you want to install using Docker (not recommended due to lack of GeneMark): https://funannotate.readthedocs.io/en/latest/install.html
 ###### manuscript: https://academic.oup.com/bioinformatics/article/33/18/2936/3861332
-###### troubleshooting reference: https://github.com/nextgenusfs/funannotate/issues/423
-###### https://github.com/nextgenusfs/funannotate/issues/242 
+###### Issues with Conda on HPC?: https://github.com/nextgenusfs/funannotate/issues/423
+###### GeneMark-ES error? https://github.com/nextgenusfs/funannotate/issues/242 
 
 
 ###### This script assumes that FUNGAP.sh and its dependencies have been installed (No longer-3/27/22)
